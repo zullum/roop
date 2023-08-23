@@ -1,4 +1,4 @@
-from typingroop import Optional
+from typing import Optional
 
 from roop.typing import Face
 

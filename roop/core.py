@@ -8,7 +8,7 @@ if any(arg.startswith('--execution-provider') for arg in sys.argv):
 # reduce tensorflow log level
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import warnings
-from typingroop import List
+from typing import List
 import platform
 import signal
 import shutil

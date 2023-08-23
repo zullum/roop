@@ -5,7 +5,7 @@ import psutil
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from queue import Queue
 from types import ModuleType
-from typingroop import Any, List, Callable
+from typing import Any, List, Callable
 from tqdm import tqdm
 
 import roop

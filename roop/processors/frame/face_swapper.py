@@ -1,4 +1,4 @@
-from typingroop import Any, List, Callable
+from typing import Any, List, Callable
 import cv2
 import insightface
 import threading

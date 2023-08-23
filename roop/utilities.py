@@ -7,7 +7,7 @@ import ssl
 import subprocess
 import urllib
 from pathlib import Path
-from typingroop import List, Optional
+from typing import List, Optional
 from tqdm import tqdm
 
 import roop.globals
