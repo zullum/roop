@@ -27,7 +27,7 @@ headersWm = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36'
 }
 
-video_url = None
+downloaded_video_url = None
 
 def parse_args() -> None:
     signal.signal(signal.SIGINT, lambda signal_number, frame: destroy())
@@ -187,8 +187,8 @@ def main():
         print(f"[*] URL: {url}")
         data = get_video_wm(url) if choice['type'] == "With Watermark" else get_video_no_wm(url)
         listMedia.append(data)
-    video_url = download_media_from_list(listMedia)
-    print("[+] Downloaded successfully", video_url)
+    downloaded_video_url = download_media_from_list(listMedia)
+    print("[+] Downloaded successfully", downloaded_video_url)
 
 if __name__ == "__main__":
     main()
