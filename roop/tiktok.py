@@ -9,6 +9,7 @@ import string
 import argparse
 import requests
 import inquirer
+import signal
 import urllib.parse
 from pathlib import Path
 from bs4 import BeautifulSoup
@@ -25,6 +26,16 @@ headers = {
 headersWm = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36'
 }
+
+def parse_args() -> None:
+    signal.signal(signal.SIGINT, lambda signal_number, frame: destroy())
+    program = argparse.ArgumentParser(formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=100))
+    program.add_argument('-v', '--video_url', help='download source video', dest='video_url')
+
+    args = program.parse_args()
+
+    roop.globals.video_url = args.video_url
+
 
 def get_choice():
     questions = [
@@ -127,6 +138,8 @@ def get_id_video(url):
     return idVideo.split("?")[0] if len(idVideo) > 19 else idVideo
 
 def main():
+    parse_args()
+    print("TikTok Downloader", video_url)
     header = "\r\n /$$$$$$$  /$$$$$$$  /$$   /$$  /$$$$$$$  /$$$$$$  /$$   /$$       /$$$$$$$   /$$$$$$  /$$      /$$ /$$   /$$ /$$        /$$$$$$   /$$$$$$  /$$$$$$$  /$$$$$$$$ /$$$$$$$ \r\n|__  $$__/|_  $$_/| $$  /$$/|__  $$__//$$__  $$| $$  /$$/      | $$__  $$ /$$__  $$| $$  /$$ | $$| $$$ | $$| $$       /$$__  $$ /$$__  $$| $$__  $$| $$_____/| $$__  $$\r\n   | $$     | $$  | $$ /$$/    | $$  | $$  \\ $$| $$ /$$/       | $$  \\ $$| $$  \\ $$| $$ /$$$| $$| $$$$| $$| $$      | $$  \\ $$| $$  \\ $$| $$  \\ $$| $$      | $$  \\ $$\r\n   | $$     | $$  | $$$$$/     | $$  | $$  | $$| $$$$$/        | $$  | $$| $$  | $$| $$/$$ $$ $$| $$ $$ $$| $$      | $$  | $$| $$$$$$$/| $$  | $$| $$$$$   | $$$$$$$/\r\n   | $$     | $$  | $$  $$     | $$  | $$  | $$| $$  $$        | $$  | $$| $$  | $$| $$$$_  $$$$| $$  $$$$| $$      | $$  | $$| $$__  $$| $$  | $$| $$__/   | $$__  $$\r\n   | $$     | $$  | $$\\  $$    | $$  | $$  | $$| $$\\  $$       | $$  | $$| $$  | $$| $$$/ \\  $$$| $$\\  $$$| $$      | $$  | $$| $$  \\ $$| $$  | $$| $$      | $$  \\ $$\r\n   | $$    /$$$$$$| $$ \\  $$   | $$  |  $$$$$$/| $$ \\  $$      | $$$$$$$/|  $$$$$$/| $$/   \\  $$| $$ \\  $$| $$$$$$$$|  $$$$$$/| $$  | $$| $$$$$$$/| $$$$$$$/| $$  | $$\r\n|__\/   |______/|__\/  \\__\/   |__\/   \\______/ |__\/  \\__\/      |_______\/  \\______/ |__\/     \\__\/|__\/  \\__\/|________\/ \\______/ |__\/  |__\/|_______\/ |________\/|__\/  |__\/\r\n\n by n0l3r (https://github.com/n0l3r)\n"
     print(header)
     # choice = get_choice()
