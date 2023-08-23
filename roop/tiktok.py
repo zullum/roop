@@ -27,6 +27,8 @@ headersWm = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36'
 }
 
+video_url = None
+
 def parse_args() -> None:
     signal.signal(signal.SIGINT, lambda signal_number, frame: destroy())
     program = argparse.ArgumentParser(formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=100))
@@ -34,7 +36,10 @@ def parse_args() -> None:
 
     args = program.parse_args()
 
-    roop.globals.video_url = args.video_url
+    print(args)
+
+    return args
+
 
 
 def get_choice():
@@ -70,12 +75,13 @@ def generate_url_profile(username):
     return baseUrl
 
 def download_media_from_list(list):
-    folder = "downloads/"
+    folder = "./"
     for item in list:
         fileName = f"{item['id']}.mp4"
         downloadFile = requests.get(item['url'], headers=headers)
         with open(folder + fileName, 'wb') as file:
             file.write(downloadFile.content)
+            return folder + fileName
 
 def get_video_wm(url):
     idVideo = get_id_video(url)
@@ -138,8 +144,8 @@ def get_id_video(url):
     return idVideo.split("?")[0] if len(idVideo) > 19 else idVideo
 
 def main():
-    parse_args()
-    print("TikTok Downloader", video_url)
+    args = parse_args()
+    print("TikTok Downloader", args.video_url)
     header = "\r\n /$$$$$$$  /$$$$$$$  /$$   /$$  /$$$$$$$  /$$$$$$  /$$   /$$       /$$$$$$$   /$$$$$$  /$$      /$$ /$$   /$$ /$$        /$$$$$$   /$$$$$$  /$$$$$$$  /$$$$$$$$ /$$$$$$$ \r\n|__  $$__/|_  $$_/| $$  /$$/|__  $$__//$$__  $$| $$  /$$/      | $$__  $$ /$$__  $$| $$  /$$ | $$| $$$ | $$| $$       /$$__  $$ /$$__  $$| $$__  $$| $$_____/| $$__  $$\r\n   | $$     | $$  | $$ /$$/    | $$  | $$  \\ $$| $$ /$$/       | $$  \\ $$| $$  \\ $$| $$ /$$$| $$| $$$$| $$| $$      | $$  \\ $$| $$  \\ $$| $$  \\ $$| $$      | $$  \\ $$\r\n   | $$     | $$  | $$$$$/     | $$  | $$  | $$| $$$$$/        | $$  | $$| $$  | $$| $$/$$ $$ $$| $$ $$ $$| $$      | $$  | $$| $$$$$$$/| $$  | $$| $$$$$   | $$$$$$$/\r\n   | $$     | $$  | $$  $$     | $$  | $$  | $$| $$  $$        | $$  | $$| $$  | $$| $$$$_  $$$$| $$  $$$$| $$      | $$  | $$| $$__  $$| $$  | $$| $$__/   | $$__  $$\r\n   | $$     | $$  | $$\\  $$    | $$  | $$  | $$| $$\\  $$       | $$  | $$| $$  | $$| $$$/ \\  $$$| $$\\  $$$| $$      | $$  | $$| $$  \\ $$| $$  | $$| $$      | $$  \\ $$\r\n   | $$    /$$$$$$| $$ \\  $$   | $$  |  $$$$$$/| $$ \\  $$      | $$$$$$$/|  $$$$$$/| $$/   \\  $$| $$ \\  $$| $$$$$$$$|  $$$$$$/| $$  | $$| $$$$$$$/| $$$$$$$/| $$  | $$\r\n|__\/   |______/|__\/  \\__\/   |__\/   \\______/ |__\/  \\__\/      |_______\/  \\______/ |__\/     \\__\/|__\/  \\__\/|________\/ \\______/ |__\/  |__\/|_______\/ |________\/|__\/  |__\/\r\n\n by n0l3r (https://github.com/n0l3r)\n"
     print(header)
     # choice = get_choice()
@@ -170,9 +176,9 @@ def main():
             url = get_redirect_url(url)
             listVideo.append(url)
     else:
-        urlInput = get_input("Enter the URL : ")
+        # urlInput = get_input("Enter the URL : ")
         # print(urlInput)
-        # urlInput = {'input': 'https://www.tiktok.com/@_insta_girls_/video/7229442215074893062'}
+        urlInput = {'input': args.video_url}
         url = get_redirect_url(urlInput['input'])
         listVideo.append(url)
     print(f"[!] Found {len(listVideo)} video")
@@ -181,8 +187,8 @@ def main():
         print(f"[*] URL: {url}")
         data = get_video_wm(url) if choice['type'] == "With Watermark" else get_video_no_wm(url)
         listMedia.append(data)
-    download_media_from_list(listMedia)
-    print("[+] Downloaded successfully")
+    video_url = download_media_from_list(listMedia)
+    print("[+] Downloaded successfully", video_url)
 
 if __name__ == "__main__":
     main()

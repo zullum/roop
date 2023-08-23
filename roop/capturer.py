@@ -1,4 +1,4 @@
-from typing import Optional
+from typingroop import Optional
 import cv2
 
 from roop.typing import Frame

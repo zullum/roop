@@ -1,5 +1,5 @@
 import threading
-from typing import Any, Optional, List
+from typingroop import Any, Optional, List
 import insightface
 import numpy
 

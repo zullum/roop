@@ -3,7 +3,7 @@ import sys
 import webbrowser
 import customtkinter as ctk
 from tkinterdnd2 import TkinterDnD, DND_ALL
-from typing import Any, Callable, Tuple, Optional
+from typingroop import Any, Callable, Tuple, Optional
 import cv2
 from PIL import Image, ImageOps
 

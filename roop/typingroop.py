@@ -1,4 +1,4 @@
-from typing import Any
+from typingroop import Any
 
 from insightface.app.common import Face
 import numpy
