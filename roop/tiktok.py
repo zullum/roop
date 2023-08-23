@@ -188,7 +188,8 @@ def main():
         data = get_video_wm(url) if choice['type'] == "With Watermark" else get_video_no_wm(url)
         listMedia.append(data)
     downloaded_video_url = download_media_from_list(listMedia)
-    print("[+] Downloaded successfully", downloaded_video_url)
+    print("succes downloaded_video_url:")
+    print(downloaded_video_url)
     return downloaded_video_url
 
 if __name__ == "__main__":
