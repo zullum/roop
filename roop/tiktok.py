@@ -123,7 +123,7 @@ def get_list_video_by_username(username):
         time.sleep(1)
         newHeight = browser.execute_script('return document.body.scrollHeight;')
         if newHeight == previousHeight:
-            print(chalk.red("[X] No more video found"))
+            print("[X] No more video found")
             print(f"[*] Total video found: {len(listVideo)}")
             loop = False
     browser.quit()
@@ -138,7 +138,7 @@ def get_redirect_url(url):
 def get_id_video(url):
     matching = "/video/" in url
     if not matching:
-        print(chalk.red("[X] Error: URL not found"))
+        print("[X] Error: URL not found")
         sys.exit()
     idVideo = url[url.index("/video/") + 7:]
     return idVideo.split("?")[0] if len(idVideo) > 19 else idVideo
@@ -165,7 +165,7 @@ def main():
         fileInput = get_input("Enter the file path : ")
         file = fileInput['input']
         if not os.path.exists(file):
-            print(chalk.red("[X] Error: File not found"))
+            print("[X] Error: File not found")
             sys.exit()
         # read file line by line
         with open(file, 'r') as f:
@@ -189,6 +189,7 @@ def main():
         listMedia.append(data)
     downloaded_video_url = download_media_from_list(listMedia)
     print("[+] Downloaded successfully", downloaded_video_url)
+    return downloaded_video_url
 
 if __name__ == "__main__":
     main()
